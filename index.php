@@ -1,16 +1,108 @@
 <?php
 require_once "Cliente.php";
+require_once "ClienteFisico.php";
+require_once "ClienteJuridico.php";
+require_once "ClienteFisicoInterface.php";
+require_once "ClienteJuridicoInterface.php";
+require_once "FormClienteFisico.php";
+require_once "FormClienteJuridico.php";
 
-$clientes[] = new Cliente("Jonathan", "123.456.678-90", "Rua Tal, 1", "jonathan@jonathan.com");
-$clientes[] = new Cliente("João", "123.123.112-90", "Rua Tal, 2", "joao@joao.com");
-$clientes[] = new Cliente("Maria", "124.236.578-90", "Rua Tal, 3", "maria@maria.com");
-$clientes[] = new Cliente("José", "127.416.618-90", "Rua Tal, 4", "jose@jose.com");
-$clientes[] = new Cliente("Fátima", "128.126.678-90", "Rua Tal, 5", "fatima@fatima.com");
-$clientes[] = new Cliente("Romualdo", "125.096.875-90", "Rua Tal, 6", "romualdo@romualdo.com");
-$clientes[] = new Cliente("Josefina", "120.356.474-90", "Rua Tal, 7", "josefina@josefina.com");
-$clientes[] = new Cliente("Leonardo", "121.415.078-90", "Rua Tal, 8", "leonardo@leonardo.com");
-$clientes[] = new Cliente("Teresa", "125.472.572-90", "Rua Tal, 9", "teresa@teresa.com");
-$clientes[] = new Cliente("Renato", "128.412.671-90", "Rua Tal, 10", "renato@renato.com");
+$cliente1 = new ClienteFisico();
+$cliente2 = new ClienteFisico();
+$cliente3 = new ClienteJuridico();
+$cliente4 = new ClienteJuridico();
+$cliente5 = new ClienteJuridico();
+$cliente6 = new ClienteFisico();
+$cliente7 = new ClienteFisico();
+$cliente8 = new ClienteFisico();
+$cliente9 = new ClienteJuridico();
+$cliente10 = new ClienteFisico();
+$clientes = array($cliente1, $cliente2, $cliente3, $cliente4, $cliente5, $cliente6, $cliente7, $cliente8, $cliente9, $cliente10);
+
+
+$clientes[0]
+    ->setNome("Jonathan")
+    ->setCpf("123.456.678-90")
+    ->setEndereco("Rua Tal, 1")
+    ->setEmail("jonathan@jonathan.com")
+    ->setClassificacao(5)
+    ->setTipo("Físico")
+;
+
+$clientes[1]
+    ->setNome("João")
+    ->setCpf("123.123.112-90")
+    ->setEndereco("Rua Tal, 2")
+    ->setEmail("joao@joao.com")
+    ->setClassificacao(4)
+    ->setTipo("Físico")
+;
+
+$clientes[2]
+    ->setNome("Maria")
+    ->setCnpj("124.236.578-90")
+    ->setEndereco("Rua Tal, 3")
+    ->setEmail("maria@maria.com")
+    ->setClassificacao(2)
+    ->setTipo("Jurídico")
+;
+$clientes[3]
+    ->setNome("José")
+    ->setCnpj("127.416.618-90")
+    ->setEndereco("Rua Tal, 4")
+    ->setEmail("jose@jose.com")
+    ->setClassificacao(4)
+    ->setTipo("Jurídico")
+;
+
+$clientes[4]
+    ->setNome("Fátima")
+    ->setCnpj("128.126.678-90")
+    ->setEndereco("Rua Tal, 5")
+    ->setEmail("fatima@fatima.com")
+    ->setClassificacao(1)
+    ->setTipo("Jurídico")
+;
+$clientes[5]
+    ->setNome("Romualdo")
+    ->setCpf("125.096.875-90")
+    ->setEndereco("Rua Tal, 6")
+    ->setEmail("romualdo@romualdo.com")
+    ->setClassificacao(5)
+    ->setTipo("Físico")
+;
+$clientes[6]
+    ->setNome("Josefina")
+    ->setCpf("120.356.474-90")
+    ->setEndereco("Rua Tal, 7")
+    ->setEmail("josefina@josefina.com")
+    ->setClassificacao(3)
+    ->setTipo("Físico")
+;
+$clientes[7]
+    ->setNome("Leonardo")
+    ->setCpf("121.415.078-90")
+    ->setEndereco("Rua Tal, 8")
+    ->setEmail("leonardo@leonardo.com")
+    ->setClassificacao(2)
+    ->setTipo("Físico")
+;
+$clientes[8]
+    ->setNome("Teresa")
+    ->setCnpj("125.472.572-90")
+    ->setEndereco("Rua Tal, 9")
+    ->setEmail("teresa@teresa.com")
+    ->setClassificacao(4)
+    ->setTipo("Jurídico")
+;
+$clientes[9]
+    ->setNome("Renato")
+    ->setCpf("128.412.671-90")
+    ->setEndereco("Rua Tal, 10")
+    ->setEmail("renato@renato.com")
+    ->setClassificacao(1)
+    ->setTipo("Físico")
+;
 
 if(isset($_GET["order"]) && $_GET["order"] == "desc"){
     $clientes = array_reverse($clientes, true);
@@ -27,6 +119,7 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,34 +127,6 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <style type="text/css">
-        body {
-            padding-top: 30px;
-        }
-        .cliente {
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .hide {
-            display: none;
-        }
-        .cliente.hover {
-            background-color: #efefef;
-            border-top:2px solid #dddddd;
-        }
-        #clienteData.hover {
-            background-color: #dddddd;
-            border-bottom: 2px solid#cccccc;
-        }
-        th {
-            background-color: #333333;
-            color: #ffffff;
-        }
-        th a, th a:link, th a:hover {
-            color: #ffffff;
-        }
-    </style>
 </head>
 <body>
 
@@ -87,19 +152,46 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                     $num = (isset($num)) ? $num += 1 : $num = 1;
                 ?>
                     <tr id="cliente<?php echo $num; ?>" class="cliente">
-                        <td colspan="3">
-                            <?php echo $cliente->nome; ?>
+                        <td colspan="2">
+                            <?php echo $cliente->getNome(); ?>
+                        </td>
+                        <td>
+                            <?php echo ($cliente->getTipo() == "Físico") ? "Pessoa Física" : "Pessoa Jurídica"; ?>
                         </td>
                     </tr>
                     <tr id="clienteData" class="cliente<?php echo $num; ?> hide">
-                        <td>
-                            <strong>Cpf:</strong> <?php echo $cliente->cpf; ?>
-                        </td>
-                        <td>
-                            <strong>Email:</strong> <?php echo $cliente->email; ?>
-                        </td>
-                        <td>
-                            <strong>Endereço:</strong> <?php echo $cliente->endereco; ?>
+                        <td colspan="3">
+                            <?php
+                            if($cliente->getTipo() == "Físico"){
+
+                                $arg = [
+                                    "nome" => $cliente->getNome(),
+                                    "cpf" => $cliente->getCpf(),
+                                    "endereco" => $cliente->getEndereco(),
+                                    "email" =>  $cliente->getEmail(),
+                                    "classificacao" =>  $cliente->getClassificacao(),
+                                    "tipo" => $cliente->getTipo()
+                                ];
+
+                                $form = new FormClienteFisico();
+                                $form->formUpdateClienteFisico($arg);
+
+                            } else {
+
+                                $arg = [
+                                    "nome" => $cliente->getNome(),
+                                    "cnpj" => $cliente->getCnpj(),
+                                    "endereco" => $cliente->getEndereco(),
+                                    "email" =>  $cliente->getEmail(),
+                                    "classificacao" =>  $cliente->getClassificacao(),
+                                    "tipo" => $cliente->getTipo()
+                                ];
+
+                                $form = new FormClienteJuridico();
+                                $form->formUpdateClienteJuridico($arg);
+
+                            }
+                            ?>
                         </td>
                     </tr>
                 <?php
@@ -107,6 +199,10 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                 ?>
 
             </table>
+
+            <hr>
+
+
 
         </div>
     </div>
