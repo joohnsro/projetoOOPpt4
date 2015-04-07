@@ -2,8 +2,8 @@
 require_once "Cliente.php";
 require_once "ClienteFisico.php";
 require_once "ClienteJuridico.php";
-require_once "ClienteFisicoInterface.php";
-require_once "ClienteJuridicoInterface.php";
+require_once "src/JSRO/Interfaces/ClienteFisicoInterface.php";
+require_once "src/JSRO/Interfaces/ClienteJuridicoInterface.php";
 require_once "FormClienteFisico.php";
 require_once "FormClienteJuridico.php";
 
