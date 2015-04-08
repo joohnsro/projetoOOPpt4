@@ -1,7 +1,7 @@
 <?php
 
 require_once "Cliente.php";
-require_once "src/JSRO/Interfaces/ClienteFisicoInterface.php";
+require_once "Interfaces/ClienteFisicoInterface.php";
 
 class ClienteFisico extends Cliente implements ClienteFisicoInterface
 {

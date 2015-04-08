@@ -1,7 +1,7 @@
 <?php
 
-require_once "src/JSRO/Interfaces/ClassificacaoInterface.php";
-require_once "src/JSRO/Interfaces/EnderecoCobrancaInterface.php";
+require_once "Interfaces/ClassificacaoInterface.php";
+require_once "Interfaces/EnderecoCobrancaInterface.php";
 
 class Cliente implements ClassificacaoInterface, EnderecoCobrancaInterface
 {

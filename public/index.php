@@ -1,9 +1,10 @@
 <?php
-require_once "ClienteFisico.php";
-require_once "ClienteJuridico.php";
-require_once "FormClienteFisico.php";
-require_once "FormClienteJuridico.php";
-require_once "FormEnderecoCobranca.php";
+
+require_once "../src/JSRO/ClienteFisico.php";
+require_once "../src/JSRO/ClienteJuridico.php";
+require_once "../src/JSRO/FormClienteFisico.php";
+require_once "../src/JSRO/FormClienteJuridico.php";
+require_once "../src/JSRO/FormEnderecoCobranca.php";
 
 $cliente1 = new ClienteFisico();
 $cliente2 = new ClienteFisico();
