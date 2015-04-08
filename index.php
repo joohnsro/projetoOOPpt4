@@ -1,11 +1,9 @@
 <?php
-require_once "Cliente.php";
 require_once "ClienteFisico.php";
 require_once "ClienteJuridico.php";
-require_once "src/JSRO/Interfaces/ClienteFisicoInterface.php";
-require_once "src/JSRO/Interfaces/ClienteJuridicoInterface.php";
 require_once "FormClienteFisico.php";
 require_once "FormClienteJuridico.php";
+require_once "FormEnderecoCobranca.php";
 
 $cliente1 = new ClienteFisico();
 $cliente2 = new ClienteFisico();
@@ -191,6 +189,9 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                                 $form->formUpdateClienteJuridico($arg);
 
                             }
+                            echo '<hr style="border:1px dashed #999999;" />';
+                            $form = new FormEnderecoCobranca();
+                            $form->formInsertEnderecoCobranca();
                             ?>
                         </td>
                     </tr>

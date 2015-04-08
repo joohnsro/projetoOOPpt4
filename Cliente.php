@@ -1,6 +1,9 @@
 <?php
 
-class Cliente
+require_once "src/JSRO/Interfaces/ClassificacaoInterface.php";
+require_once "src/JSRO/Interfaces/EnderecoCobrancaInterface.php";
+
+class Cliente implements ClassificacaoInterface, EnderecoCobrancaInterface
 {
 
     protected $nome;
@@ -8,6 +11,24 @@ class Cliente
     protected $email;
     protected $classificacao;
     protected $tipo;
+    protected $enderecoCobranca;
+
+    /**
+     * @param mixed $enderecoCobranca
+     */
+    public function setEnderecoCobranca($enderecoCobranca)
+    {
+        $this->enderecoCobranca = $enderecoCobranca;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnderecoCobranca()
+    {
+        return $this->enderecoCobranca;
+    }
 
     /**
      * @param mixed $tipo
