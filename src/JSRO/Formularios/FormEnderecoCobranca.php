@@ -1,6 +1,10 @@
 <?php
 
-class FormEnderecoCobranca
+namespace JSRO\Formularios;
+
+use JSRO\ClienteAbstract;
+
+class FormEnderecoCobranca extends ClienteAbstract
 {
 
     public function formInsertEnderecoCobranca()

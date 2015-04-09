@@ -1,8 +1,10 @@
 <?php
 
-require_once "Cliente.php";
+namespace JSRO\Formularios;
 
-class FormClienteFisico extends Cliente
+use JSRO\ClienteAbstract;
+
+class FormClienteFisico extends ClienteAbstract
 {
 
     public function formInsertClienteFisico()

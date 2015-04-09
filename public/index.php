@@ -1,23 +1,20 @@
 <?php
 
-require_once "../src/JSRO/ClienteFisico.php";
-require_once "../src/JSRO/ClienteJuridico.php";
-require_once "../src/JSRO/FormClienteFisico.php";
-require_once "../src/JSRO/FormClienteJuridico.php";
-require_once "../src/JSRO/FormEnderecoCobranca.php";
+define('CLASS_DIR', '../src/');
+set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
+spl_autoload_register();
 
-$cliente1 = new ClienteFisico();
-$cliente2 = new ClienteFisico();
-$cliente3 = new ClienteJuridico();
-$cliente4 = new ClienteJuridico();
-$cliente5 = new ClienteJuridico();
-$cliente6 = new ClienteFisico();
-$cliente7 = new ClienteFisico();
-$cliente8 = new ClienteFisico();
-$cliente9 = new ClienteJuridico();
-$cliente10 = new ClienteFisico();
+$cliente1 = new JSRO\Clientes\ClienteFisico();
+$cliente2 = new JSRO\Clientes\ClienteFisico();
+$cliente3 = new JSRO\Clientes\ClienteJuridico();
+$cliente4 = new JSRO\Clientes\ClienteJuridico();
+$cliente5 = new JSRO\Clientes\ClienteJuridico();
+$cliente6 = new JSRO\Clientes\ClienteFisico();
+$cliente7 = new JSRO\Clientes\ClienteFisico();
+$cliente8 = new JSRO\Clientes\ClienteFisico();
+$cliente9 = new JSRO\Clientes\ClienteJuridico();
+$cliente10 = new JSRO\Clientes\ClienteFisico();
 $clientes = array($cliente1, $cliente2, $cliente3, $cliente4, $cliente5, $cliente6, $cliente7, $cliente8, $cliente9, $cliente10);
-
 
 $clientes[0]
     ->setNome("Jonathan")
@@ -172,7 +169,7 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                                     "tipo" => $cliente->getTipo()
                                 ];
 
-                                $form = new FormClienteFisico();
+                                $form = new JSRO\Formularios\FormClienteFisico();
                                 $form->formUpdateClienteFisico($arg);
 
                             } else {
@@ -186,12 +183,12 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                                     "tipo" => $cliente->getTipo()
                                 ];
 
-                                $form = new FormClienteJuridico();
+                                $form = new JSRO\Formularios\FormClienteJuridico();
                                 $form->formUpdateClienteJuridico($arg);
 
                             }
                             echo '<hr style="border:1px dashed #999999;" />';
-                            $form = new FormEnderecoCobranca();
+                            $form = new JSRO\Formularios\FormEnderecoCobranca();
                             $form->formInsertEnderecoCobranca();
                             ?>
                         </td>
