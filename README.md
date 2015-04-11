@@ -1,3 +1,3 @@
 #### Projeto OOP ####
 
-Segunda e terceira parte do projeto sobre Programação Orientada a Objetos do curso.
+Quarta parte do projeto sobre Programação Orientada a Objetos do curso.
