@@ -4,105 +4,9 @@ define('CLASS_DIR', '../src/');
 set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
 spl_autoload_register();
 
-$cliente1 = new JSRO\Clientes\ClienteFisico();
-$cliente2 = new JSRO\Clientes\ClienteFisico();
-$cliente3 = new JSRO\Clientes\ClienteJuridico();
-$cliente4 = new JSRO\Clientes\ClienteJuridico();
-$cliente5 = new JSRO\Clientes\ClienteJuridico();
-$cliente6 = new JSRO\Clientes\ClienteFisico();
-$cliente7 = new JSRO\Clientes\ClienteFisico();
-$cliente8 = new JSRO\Clientes\ClienteFisico();
-$cliente9 = new JSRO\Clientes\ClienteJuridico();
-$cliente10 = new JSRO\Clientes\ClienteFisico();
-$clientes = array($cliente1, $cliente2, $cliente3, $cliente4, $cliente5, $cliente6, $cliente7, $cliente8, $cliente9, $cliente10);
+$fixture = new JSRO\Fixtures\Fixture();
+$fixture->flush();
 
-$clientes[0]
-    ->setNome("Jonathan")
-    ->setCpf("123.456.678-90")
-    ->setEndereco("Rua Tal, 1")
-    ->setEmail("jonathan@jonathan.com")
-    ->setClassificacao(5)
-    ->setTipo("Físico")
-;
-
-$clientes[1]
-    ->setNome("João")
-    ->setCpf("123.123.112-90")
-    ->setEndereco("Rua Tal, 2")
-    ->setEmail("joao@joao.com")
-    ->setClassificacao(4)
-    ->setTipo("Físico")
-;
-
-$clientes[2]
-    ->setNome("Maria")
-    ->setCnpj("124.236.578-90")
-    ->setEndereco("Rua Tal, 3")
-    ->setEmail("maria@maria.com")
-    ->setClassificacao(2)
-    ->setTipo("Jurídico")
-;
-$clientes[3]
-    ->setNome("José")
-    ->setCnpj("127.416.618-90")
-    ->setEndereco("Rua Tal, 4")
-    ->setEmail("jose@jose.com")
-    ->setClassificacao(4)
-    ->setTipo("Jurídico")
-;
-
-$clientes[4]
-    ->setNome("Fátima")
-    ->setCnpj("128.126.678-90")
-    ->setEndereco("Rua Tal, 5")
-    ->setEmail("fatima@fatima.com")
-    ->setClassificacao(1)
-    ->setTipo("Jurídico")
-;
-$clientes[5]
-    ->setNome("Romualdo")
-    ->setCpf("125.096.875-90")
-    ->setEndereco("Rua Tal, 6")
-    ->setEmail("romualdo@romualdo.com")
-    ->setClassificacao(5)
-    ->setTipo("Físico")
-;
-$clientes[6]
-    ->setNome("Josefina")
-    ->setCpf("120.356.474-90")
-    ->setEndereco("Rua Tal, 7")
-    ->setEmail("josefina@josefina.com")
-    ->setClassificacao(3)
-    ->setTipo("Físico")
-;
-$clientes[7]
-    ->setNome("Leonardo")
-    ->setCpf("121.415.078-90")
-    ->setEndereco("Rua Tal, 8")
-    ->setEmail("leonardo@leonardo.com")
-    ->setClassificacao(2)
-    ->setTipo("Físico")
-;
-$clientes[8]
-    ->setNome("Teresa")
-    ->setCnpj("125.472.572-90")
-    ->setEndereco("Rua Tal, 9")
-    ->setEmail("teresa@teresa.com")
-    ->setClassificacao(4)
-    ->setTipo("Jurídico")
-;
-$clientes[9]
-    ->setNome("Renato")
-    ->setCpf("128.412.671-90")
-    ->setEndereco("Rua Tal, 10")
-    ->setEmail("renato@renato.com")
-    ->setClassificacao(1)
-    ->setTipo("Físico")
-;
-
-if(isset($_GET["order"]) && $_GET["order"] == "desc"){
-    $clientes = array_reverse($clientes, true);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,29 +48,41 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                     </th>
                 </thead>
                 <?php
+                if(isset($_GET["order"]) && $_GET["order"] == "desc"){
+                    $query = "Select * from clientes order by id desc";
+                } else {
+                    $query = "Select * from clientes order by id asc";
+                }
+
+                $stmt = $fixture->pdo->prepare($query);
+                $stmt->execute();
+                $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
                 foreach($clientes as $cliente){
+
                     $num = (isset($num)) ? $num += 1 : $num = 1;
                 ?>
                     <tr id="cliente<?php echo $num; ?>" class="cliente">
                         <td colspan="2">
-                            <?php echo $cliente->getNome(); ?>
+                            <?php echo $cliente["nome"]; ?>
                         </td>
                         <td>
-                            <?php echo ($cliente->getTipo() == "Físico") ? "Pessoa Física" : "Pessoa Jurídica"; ?>
+                            <?php echo ($cliente["tipo"] == "Físico") ? "Pessoa Física" : "Pessoa Jurídica"; ?>
                         </td>
                     </tr>
                     <tr id="clienteData" class="cliente<?php echo $num; ?> hide">
                         <td colspan="3">
+
                             <?php
-                            if($cliente->getTipo() == "Físico"){
+                            if($cliente["tipo"] == "Físico"){
 
                                 $arg = [
-                                    "nome" => $cliente->getNome(),
-                                    "cpf" => $cliente->getCpf(),
-                                    "endereco" => $cliente->getEndereco(),
-                                    "email" =>  $cliente->getEmail(),
-                                    "classificacao" =>  $cliente->getClassificacao(),
-                                    "tipo" => $cliente->getTipo()
+                                    "nome" => $cliente["nome"],
+                                    "cpf" => $cliente["documento"],
+                                    "endereco" => $cliente["endereco"],
+                                    "email" =>  $cliente["email"],
+                                    "classificacao" =>  $cliente["classificacao"],
+                                    "tipo" => $cliente["tipo"]
                                 ];
 
                                 $form = new JSRO\Formularios\FormClienteFisico();
@@ -175,22 +91,26 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                             } else {
 
                                 $arg = [
-                                    "nome" => $cliente->getNome(),
-                                    "cnpj" => $cliente->getCnpj(),
-                                    "endereco" => $cliente->getEndereco(),
-                                    "email" =>  $cliente->getEmail(),
-                                    "classificacao" =>  $cliente->getClassificacao(),
-                                    "tipo" => $cliente->getTipo()
+                                    "nome" => $cliente["nome"],
+                                    "cnpj" => $cliente["documento"],
+                                    "endereco" => $cliente["endereco"],
+                                    "email" =>  $cliente["email"],
+                                    "classificacao" =>  $cliente["classificacao"],
+                                    "tipo" => $cliente["tipo"]
                                 ];
 
                                 $form = new JSRO\Formularios\FormClienteJuridico();
                                 $form->formUpdateClienteJuridico($arg);
 
                             }
+
                             echo '<hr style="border:1px dashed #999999;" />';
+
+                            $arg = [ "enderecoCobranca" => $cliente["enderecoCobranca"] ];
                             $form = new JSRO\Formularios\FormEnderecoCobranca();
-                            $form->formInsertEnderecoCobranca();
+                            $form->formUpdateEnderecoCobranca($arg);
                             ?>
+
                         </td>
                     </tr>
                 <?php
@@ -198,10 +118,6 @@ if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                 ?>
 
             </table>
-
-            <hr>
-
-
 
         </div>
     </div>
