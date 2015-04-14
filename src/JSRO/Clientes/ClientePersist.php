@@ -1,8 +1,6 @@
 <?php
 
-namespace JSRO\Fixtures;
-
-use JSRO\ClienteAbstract;
+namespace JSRO\Clientes;
 
 class ClientePersist
 {

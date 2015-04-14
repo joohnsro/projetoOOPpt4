@@ -2,7 +2,6 @@
 
 namespace JSRO\Clientes;
 
-use JSRO\ClienteAbstract;
 use JSRO\Interfaces\ClienteFisicoInterface;
 
 class ClienteFisico extends ClienteAbstract implements ClienteFisicoInterface

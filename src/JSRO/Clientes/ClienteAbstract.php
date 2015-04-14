@@ -1,6 +1,6 @@
 <?php
 
-namespace JSRO;
+namespace JSRO\Clientes;
 
 use JSRO\Interfaces\ClassificacaoInterface;
 use JSRO\Interfaces\EnderecoCobrancaInterface;
@@ -83,12 +83,4 @@ abstract class ClienteAbstract implements ClassificacaoInterface, EnderecoCobran
         return $this->nome;
     }
 
-    protected function getClassificacaoAtual($num, $value)
-    {
-        if($num == $value){
-            return 'checked="checked"';
-        }
-
-        return false;
-    }
 }

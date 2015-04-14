@@ -1,6 +1,6 @@
 <?php
 
-namespace JSRO;
+namespace JSRO\Database;
 
 
 class Connection
@@ -21,6 +21,7 @@ class Connection
         try {
 
             $this->pdo = new \PDO("mysql:host={$this->config["host"]};dbname={$this->config["dbname"]}", $this->config["user"], $this->config["password"]);
+            return $this;
 
         } catch (\PDOException $e){
 

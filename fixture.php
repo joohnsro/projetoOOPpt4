@@ -1,23 +1,42 @@
 <?php
 
-define('CLASS_DIR', '../../');
-set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
-spl_autoload_register();
+require_once "autoload.php";
 
-$con = new JSRO\Connection();
+use \JSRO\Database\Connection;
+use \JSRO\Clientes\ClienteFisico;
+use \JSRO\Clientes\ClienteJuridico;
+use \JSRO\Clientes\ClientePersist;
 
-$dp = new JSRO\Fixtures\ClientePersist($con->getPdo());
+$con = new Connection();
 
-$cliente1 = new JSRO\Clientes\ClienteFisico();
-$cliente2 = new JSRO\Clientes\ClienteFisico();
-$cliente3 = new JSRO\Clientes\ClienteJuridico();
-$cliente4 = new JSRO\Clientes\ClienteJuridico();
-$cliente5 = new JSRO\Clientes\ClienteJuridico();
-$cliente6 = new JSRO\Clientes\ClienteFisico();
-$cliente7 = new JSRO\Clientes\ClienteFisico();
-$cliente8 = new JSRO\Clientes\ClienteFisico();
-$cliente9 = new JSRO\Clientes\ClienteJuridico();
-$cliente10 = new JSRO\Clientes\ClienteFisico();
+$tabelaCliente = $con->getPdo()->prepare(
+    "CREATE TABLE IF NOT EXISTS clientes (
+      id INT (11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      documento VARCHAR (255) NOT NULL,
+      email VARCHAR (255) NOT NULL,
+      endereco VARCHAR (255) NOT NULL,
+      enderecoCobranca VARCHAR (255) NOT NULL,
+      tipo VARCHAR (255) NOT NULL,
+      classificacao VARCHAR (255) NOT NULL
+    );"
+);
+
+if(!$tabelaCliente->execute()){
+    die(print_r($tabelaCliente->errorInfo()));
+}
+
+$dp = new ClientePersist($con->getPdo());
+
+$cliente1 = new ClienteFisico();
+$cliente2 = new ClienteFisico();
+$cliente3 = new ClienteJuridico();
+$cliente4 = new ClienteJuridico();
+$cliente5 = new ClienteJuridico();
+$cliente6 = new ClienteFisico();
+$cliente7 = new ClienteFisico();
+$cliente8 = new ClienteFisico();
+$cliente9 = new ClienteJuridico();
+$cliente10 = new ClienteFisico();
 
 $cliente1
     ->setNome("Jonathan")
