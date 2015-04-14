@@ -4,9 +4,6 @@ define('CLASS_DIR', '../src/');
 set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
 spl_autoload_register();
 
-$fixture = new JSRO\Fixtures\Fixture();
-$fixture->flush();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,14 +45,18 @@ $fixture->flush();
                     </th>
                 </thead>
                 <?php
+
+                $con = new \JSRO\Connection();
+
                 if(isset($_GET["order"]) && $_GET["order"] == "desc"){
                     $query = "Select * from clientes order by id desc";
                 } else {
                     $query = "Select * from clientes order by id asc";
                 }
 
-                $stmt = $fixture->pdo->prepare($query);
+                $stmt = $con->getPdo()->prepare($query);
                 $stmt->execute();
+
                 $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach($clientes as $cliente){
