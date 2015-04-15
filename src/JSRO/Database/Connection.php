@@ -8,19 +8,14 @@ class Connection
 
     private $pdo;
 
-    private $config = array(
-        "host" => "localhost",
-        "dbname" => "poo",
-        "user" => "root",
-        "password" => ""
-    );
-
     public function __construct()
     {
 
         try {
 
-            $this->pdo = new \PDO("mysql:host={$this->config["host"]};dbname={$this->config["dbname"]}", $this->config["user"], $this->config["password"]);
+            $config = parse_ini_file("config.ini", true);
+
+            $this->pdo = new \PDO("mysql:host={$config["database"]["host"]};dbname={$config["database"]["dbname"]}", $config["database"]["user"], $config["database"]["password"]);
             return $this;
 
         } catch (\PDOException $e){
